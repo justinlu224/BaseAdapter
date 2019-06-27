@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BaseAdapter.OnItemClickListener<CityListData> {
 
     List<CityListData>cityListDataList = new ArrayList<>();
     MyAdapter myAdapter;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         View footer = layoutInflater.inflate(R.layout.area_footer, recyclerView, false);
         myAdapter.setFooterView(footer);
         myAdapter.addDatas(cityListDataList);
+        myAdapter.setOnItemClickLister(this);
         recyclerView.setAdapter(myAdapter);
     }
 
@@ -74,5 +76,11 @@ public class MainActivity extends AppCompatActivity {
         cityListDataList.add(cityListData2);
         cityListDataList.add(cityListData3);
         cityListDataList.add(cityListData);
+    }
+
+
+    @Override
+    public void onItemClick(int position, CityListData data) {
+        Toast.makeText(this, data.getName(), Toast.LENGTH_SHORT).show();
     }
 }
