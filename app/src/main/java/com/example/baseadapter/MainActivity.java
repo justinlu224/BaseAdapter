@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.example.baseadapter.view.LoadingDialog;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
     LinearLayoutManager layoutManager;
     private LayoutInflater layoutInflater;
     RecyclerView recyclerView;
+    private LoadingDialog loadingDialog;
+    private RequestManager requestManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
 
     private void initView() {
         recyclerView = findViewById(R.id.recyclerView);
+        requestManager = Glide.with(this);
+        loadingDialog = new LoadingDialog(this,requestManager);
+        loadingDialog.setTitle("Loading...");
+        loadingDialog.show();
     }
 
     private void initAdapter() {
@@ -76,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
         cityListDataList.add(cityListData2);
         cityListDataList.add(cityListData3);
         cityListDataList.add(cityListData);
+
     }
 
 
