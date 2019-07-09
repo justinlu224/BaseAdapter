@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BaseAdapter.OnItemClickListener<CityListData> {
+public class MainActivity extends AppCompatActivity implements BaseAdapter.OnItemClickListener<CityListData>, BaseAdapter.RequestLoadMoreListener {
 
     List<CityListData>cityListDataList = new ArrayList<>();
     MyAdapter myAdapter;
@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
         myAdapter = new MyAdapter(cityListDataList);
         View footer = layoutInflater.inflate(R.layout.area_footer, recyclerView, false);
         myAdapter.setFooterView(footer);
+        myAdapter.setLoadMoreListener(this);
+        //設定倒數第二筆開始預載
+        myAdapter.setPreLoadNumber(2);
         myAdapter.addDatas(cityListDataList);
         myAdapter.setOnItemClickLister(this);
         recyclerView.setAdapter(myAdapter);
@@ -86,6 +89,21 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
         cityListDataList.add(cityListData2);
         cityListDataList.add(cityListData3);
         cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData1);
+        cityListDataList.add(cityListData2);
+        cityListDataList.add(cityListData3);
+        cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData1);
+        cityListDataList.add(cityListData2);
+        cityListDataList.add(cityListData3);
+        cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData);
+        cityListDataList.add(cityListData1);
+        cityListDataList.add(cityListData2);
+        cityListDataList.add(cityListData3);
+        cityListDataList.add(cityListData);
 
     }
 
@@ -93,5 +111,10 @@ public class MainActivity extends AppCompatActivity implements BaseAdapter.OnIte
     @Override
     public void onItemClick(int position, CityListData data) {
         Toast.makeText(this, data.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        Toast.makeText(this, "LoadMore", Toast.LENGTH_SHORT).show();
     }
 }

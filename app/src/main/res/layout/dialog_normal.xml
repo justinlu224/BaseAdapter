@@ -43,7 +43,7 @@
     <Button
         android:id="@+id/btnCancel"
         android:text="取消"
-        android:textSize="@dimen/album_sp_16"
+        android:textSize="16dp"
         android:gravity="center"
         android:background="@color/color_transparent"
         app:layout_constraintTop_toBottomOf="@+id/tvLine"
@@ -56,7 +56,7 @@
     <Button
         android:id="@+id/btnConfirm"
         android:text="確認"
-        android:textSize="@dimen/album_sp_16"
+        android:textSize="16dp"
         android:textColor="@color/color_blue"
         android:gravity="center"
         android:background="@color/color_transparent"

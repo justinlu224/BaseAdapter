@@ -17,6 +17,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     private final int TYPE_FOOTER = 3;
     private final int TYPE_NORMAL = 4;
     private List<T> mDatas = new ArrayList<>();
+    private int mPreLoadNumber;
+    private RequestLoadMoreListener mRequestLoadMoreListener;
 
     private OnItemClickListener mListener;
 
@@ -38,6 +40,26 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return mFooterView;
     }
 
+    public void setPreLoadNumber(int preLoadNumber) {
+        if (preLoadNumber > 1) {
+            mPreLoadNumber = preLoadNumber;
+        }
+    }
+
+    public void setLoadMoreListener(RequestLoadMoreListener requestLoadMoreListener){
+        this.mRequestLoadMoreListener = requestLoadMoreListener;
+    }
+
+    //預載功能判斷用
+    private void autoLoadMore(int position) {
+        if (mRequestLoadMoreListener == null){
+            return;
+        }
+        if (position < getItemCount() - mPreLoadNumber) {
+            return;
+        }
+        mRequestLoadMoreListener.onLoadMoreRequested();
+    }
 
 
     @Override
@@ -63,7 +85,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(getItemViewType(position) == TYPE_FOOTER) return;
-
+        autoLoadMore(position);
         final int pos = getRealPosition(viewHolder);
         final T data = mDatas.get(pos);
         onBind(viewHolder, pos, data);
@@ -120,6 +142,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     public interface OnItemClickListener<T> {
         void onItemClick(int position, T data);
+    }
+
+    public interface RequestLoadMoreListener {
+        void onLoadMoreRequested();
     }
     public class Holder extends RecyclerView.ViewHolder {
         public Holder(View itemView) {
