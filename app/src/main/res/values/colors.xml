@@ -10,4 +10,9 @@
 
     <color name="color_transparent">#00000000</color>//透明色
     <color name="color_blue">#005ab5</color>
+
+    <color name="transparent_gray">#74BBB9B9</color>
+
+    <color name="main_shop_chartline_blue">#6BC1B2</color>
+    <color name="main_shop_chartline_yellow">#FFCC33</color>
 </resources>
