@@ -4,20 +4,21 @@ public class BaseData<T> {
     public final Status status;
     public final T data;
     public final Throwable error;
+    public final String msg;
 
-
-    public BaseData(Status status, T data, Throwable error) {
+    public BaseData(Status status, T data, Throwable error, String msg) {
         this.status = status;
         this.data = data;
         this.error = error;
+        this.msg = msg;
     }
 
     public static <T> BaseData<T> content(T data) {
-        return new BaseData<>(Status.Content, data, null);
+        return new BaseData<>(Status.Content, data, null, "");
     }
 
     public static <T> BaseData<T> error(T data, Throwable error) {
-        return new BaseData<>(Status.Error, data, error);
+        return new BaseData<>(Status.Error, data, error, "");
     }
 
     public static <T> BaseData<T> error(Throwable error) {
@@ -29,7 +30,7 @@ public class BaseData<T> {
     }
 
     public static <T> BaseData<T> empty(T data) {
-        return new BaseData<>(Status.Empty, data, null);
+        return new BaseData<>(Status.Empty, data, null, "");
     }
 
     public static <T> BaseData<T> empty() {
@@ -37,18 +38,18 @@ public class BaseData<T> {
     }
 
     public static <T> BaseData<T> loading(T data) {
-        return new BaseData<>(Status.Loading, data, null);
+        return new BaseData<>(Status.Loading, data, null, "");
     }
 
     public static <T> BaseData<T> loading() {
         return loading(null);
     }
 
-    public static <T> BaseData<T> failure(Throwable failure) {
-        return new BaseData<>(Status.Failure, null, failure);
+    public static <T> BaseData<T> failure(Throwable failure,String msg) {
+        return new BaseData<>(Status.Failure, null, failure, msg);
     }
 
     public static <T> BaseData<T> errorMessage(T data) {
-        return new BaseData<>(Status.ErrorMessage, data, null);
+        return new BaseData<>(Status.ErrorMessage, data, null,"");
     }
 }
